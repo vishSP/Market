@@ -27,15 +27,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             raise Http404("Вы не являетесь владельцем этого товара")
         return self.object
 
-    def form_valid(self, form):
-        context_data = self.get_context_data()
-        formset = context_data['formset']
-        self.object = form.save()
-        if formset.is_valid():
-            formset.instance = self.object
-            formset.save()
-        return super().form_valid(form)
-
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product

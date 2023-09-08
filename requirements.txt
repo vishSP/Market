@@ -8,3 +8,4 @@ djoser
 djangorestframework-jwt
 djangorestframework
 drf-yasg
+coverage

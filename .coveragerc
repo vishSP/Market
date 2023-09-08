@@ -1,0 +1,8 @@
+[run]
+branch = True
+omit =
+   users/tests.py*
+   config/wsgi.py*
+   config/asgi.py*
+   manage.py*
+   market_app/tests.py*
