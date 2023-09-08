@@ -3,8 +3,8 @@ from django.http import Http404
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from rest_framework import permissions
 
-from market_app.forms import ProductForm
 from market_app.models import Product
+from market_app.pagination import MarketPagination
 
 
 class CardView(DetailView):
@@ -18,7 +18,7 @@ class CardView(DetailView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    form_class = ProductForm
+    pagination_class = MarketPagination
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, queryset=None):
@@ -39,11 +39,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
-    form_class = ProductForm
     permission_classes = [permissions.IsAuthenticated]
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
-    form_class = ProductForm
     permission_classes = [permissions.IsAuthenticated]

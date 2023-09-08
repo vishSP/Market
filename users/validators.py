@@ -11,12 +11,14 @@ class PhoneValidator:
         if not re.match(self.phone_regex, value):
             raise ValidationError(massage=self.massage)
 
+
 class PasswordValidator:
-    def __call__(self, value):
-        """
-        Проверяет, содержит ли пароль и буквы, и цифры.
-        """
-        if not any(char.isdigit() for char in value):
-            raise ValidationError("Пароль должен содержать хотя бы одну цифру.")
-        if not any(char.isalpha() for char in value):
-            raise ValidationError("Пароль должен содержать хотя бы одну букву.")
+    def call(self, value):
+        if len(value) < 8:
+            raise ValidationError('Пароль должен быть не менее 8 символов.')
+        if not re.search(r'[A-Z]', value):
+            raise ValidationError('Пароль должен содержать хотя бы один символ верхнего регистра.')
+        if not re.search(r'[a-zA-Z]', value):
+            raise ValidationError('Пароль должен содержать только символы латиницы.')
+        if not re.search(r'[$%&!:.]', value):
+            raise ValidationError('Пароль должен содержать хотя бы один спец символ из $%&!:.')

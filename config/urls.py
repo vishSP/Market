@@ -19,11 +19,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from market_app.yasg import urlpatterns as doc_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('market_app.urls', namespace='market_app')),
-    path('users/', include('users.urls', namespace='users')),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('', include('market_app.urls', namespace='market_app')),
+                  path('users/', include('users.urls', namespace='users')),
+                  path('auth/', include('djoser.urls')),
+                  path('auth/', include('djoser.urls.authtoken')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += doc_urls

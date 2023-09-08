@@ -30,7 +30,6 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data: Dict[str, Any]) -> User:
-
         user = User.objects.create(
             email=validated_data["email"],
             first_name=validated_data["first_name"],
