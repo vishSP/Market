@@ -1,13 +1,10 @@
-import os
-
-from django.contrib.auth.tokens import default_token_generator
-from djoser import utils
-from djoser.conf import settings
-from users.models import User
 from rest_framework import status
-from rest_framework.test import APIClient, APITestCase
+from rest_framework.test import APITestCase
 
-class UserCreationTestCase(APITestCase): # pragma: no cover
+from users.models import User
+
+
+class UserCreationTestCase(APITestCase):  # pragma: no cover
     """Регистрация пользователя"""
 
     def setUp(self):
@@ -16,7 +13,7 @@ class UserCreationTestCase(APITestCase): # pragma: no cover
             "email": "ivan@mail.com",
             "first_name": "Ivan",
             "last_name": "Ivanov",
-            "patronymic":"Ivanovich",
+            "patronymic": "Ivanovich",
             "password": "Qwerty12345!",
             "phone": "+7(912)345-67-89",
         }
@@ -25,7 +22,6 @@ class UserCreationTestCase(APITestCase): # pragma: no cover
 
         self.invalid_password_user_data = self.valid_user_data.copy()
         self.invalid_password_user_data["password"] = "Qazwsxedcrfv"
-
 
     def test_invalid_phone_number(self):
         """Некорректный номер телефона"""
@@ -48,5 +44,3 @@ class UserCreationTestCase(APITestCase): # pragma: no cover
         self.assertIn("password", response.data)
 
         self.assertEqual(User.objects.count(), 0)
-
-

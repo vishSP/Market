@@ -93,9 +93,10 @@ class ProductTestCase(BaseTestCase):
         self.assertEqual(len(all_ads), 2)
 
 
-
 class ProductReadTestCase(BaseTestCase):
-    """Чтение объявления"""
+    """
+    Чтение продукта
+    """
 
     def setUp(self):
         super().setUp()

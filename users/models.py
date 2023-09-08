@@ -38,14 +38,13 @@ class CustomUserManager(UserManager):
 
 class User(AbstractUser):
     username = None
-    email = models.EmailField(unique=True, verbose_name='почта')
 
     objects = CustomUserManager()
 
+    email = models.EmailField(unique=True, verbose_name='почта')
     first_name = models.CharField(verbose_name='Имя')
     last_name = models.CharField(verbose_name='Фамилия')
     patronymic = models.CharField(verbose_name='Отчество')
-
     phone = models.CharField(unique=True, max_length=35, verbose_name='телефон')
 
     USERNAME_FIELD = "email"
@@ -54,3 +53,6 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name} {self.patronymic}'

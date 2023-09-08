@@ -8,4 +8,3 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'price',)
     list_filter = ('name',)
     search_fields = ('name',)
-

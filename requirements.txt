@@ -9,3 +9,4 @@ djangorestframework-jwt
 djangorestframework
 drf-yasg
 coverage
+flake8
