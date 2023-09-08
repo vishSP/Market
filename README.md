@@ -64,3 +64,8 @@ source env/bin/activate
 ```bash
 python manage.py runserver
 ```
+
+## Для запуска тестов
+```bash
+python manage.py test
+```
