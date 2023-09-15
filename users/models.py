@@ -45,7 +45,7 @@ class User(AbstractUser):
     first_name = models.CharField(verbose_name='Имя')
     last_name = models.CharField(verbose_name='Фамилия')
     patronymic = models.CharField(verbose_name='Отчество')
-    phone = models.CharField(unique=True, max_length=35, verbose_name='телефон')
+    phone = models.CharField(unique=True, verbose_name='телефон')
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
