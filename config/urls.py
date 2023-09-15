@@ -26,8 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('market_app.urls', namespace='market_app')),
     path('users/', include('users.urls', namespace='users')),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
