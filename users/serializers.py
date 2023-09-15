@@ -50,13 +50,6 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
         return user
 
-    class Meta:
-        model = User
-        fields = "all"
-        extra_kwargs = {
-            "password": {"write_only": True},
-        }
-
 
 class UserSerializer(serializers.ModelSerializer):
     """
