@@ -27,6 +27,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             "last_name": {"required": True},
             "patronymic": {"required": True},
             "phone": {"required": True},
+            "password": {"write_only": True},
         }
 
     def save(self, *args, **kwargs):
