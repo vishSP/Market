@@ -13,7 +13,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     Настроена проверка номера телефона.
     Телефонный номер должен быть в формате: +7(9**)***-**-**
     """
-
+    password2 = serializers.CharField()
     password = serializers.CharField(
         write_only=True, required=True, validators=[PasswordValidator()]
     )
@@ -21,13 +21,19 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "email", "password", "first_name", "last_name", "phone", "patronymic"]
+        fields = ["id", "email", "password", "password2", "first_name", "last_name", "phone", "patronymic"]
         extra_kwargs = {
             "first_name": {"required": True},
             "last_name": {"required": True},
             "patronymic": {"required": True},
             "phone": {"required": True},
         }
+
+    def save(self, *args, **kwargs):
+        password = self.validated_data['password']
+        password2 = self.validated_data['password2']
+        if password != password2:
+            raise serializers.ValidationError('Пароли не совпадают')
 
     def create(self, validated_data: Dict[str, Any]) -> User:
         user = User.objects.create(
