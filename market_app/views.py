@@ -1,22 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from rest_framework import permissions
+from rest_framework.generics import DestroyAPIView, UpdateAPIView, CreateAPIView, RetrieveAPIView
 
 from market_app.models import Product
 from market_app.pagination import MarketPagination
 
 
-class CardView(DetailView):
+class CardView(RetrieveAPIView):
     model = Product
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        context_data['title'] = context_data['object']
-        return context_data
 
-
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateAPIView):
     model = Product
     pagination_class = MarketPagination
     permission_classes = [permissions.IsAuthenticated]
@@ -28,11 +23,11 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return self.object
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateAPIView):
     model = Product
     permission_classes = [permissions.IsAuthenticated]
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DestroyAPIView):
     model = Product
     permission_classes = [permissions.IsAuthenticated]
