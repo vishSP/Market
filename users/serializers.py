@@ -1,15 +1,10 @@
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import User
 from .validators import PasswordValidator, PhoneValidator
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
-    """
-    Настроена проверка номера телефона.
-    Телефонный номер должен быть в формате: +7(9**)***-**-**
-    """
     password2 = serializers.CharField()
 
     def validate(self, attrs):
@@ -19,15 +14,15 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Пароли не совпадают')
         return attrs
 
-    def create(self, validated_data):
+    def save(self, **kwargs):
         user = User.objects.create(
-            email=validated_data["email"],
-            first_name=validated_data["first_name"],
-            last_name=validated_data["last_name"],
-            patronymic=validated_data["patronymic"],
-            phone=validated_data["phone"], )
+            email=self.validated_data["email"],
+            first_name=self.validated_data["first_name"],
+            last_name=self.validated_data["last_name"],
+            patronymic=self.validated_data["patronymic"],
+            phone=self.validated_data["phone"], )
 
-        user.set_password(validated_data["password"])
+        user.set_password(self.validated_data["password"])
         user.save()
 
         return user
@@ -57,11 +52,3 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["first_name", "last_name", "phone", "patronymic", "id", "email"]
         read_only_fields = ["id", "email"]
         validators = [PhoneValidator(field='phone')]
-
-
-class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['email'] = user.email
-        return token
