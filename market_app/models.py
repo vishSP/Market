@@ -7,7 +7,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name='наименование')
     price = models.IntegerField(verbose_name='цена')
     created_at = models.DateField(auto_now_add=True, verbose_name='дата создания')
-    updated_at = models.DateField(verbose_name='дата последнего изменения ')
+    updated_at = models.DateField(auto_now=True, verbose_name='дата последнего изменения ')
 
     is_active = models.BooleanField(default=False, verbose_name='признак публикации')
 
